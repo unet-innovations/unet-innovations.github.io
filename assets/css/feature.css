@@ -1,0 +1,840 @@
+/* === Split sections (1x2) === */
+:root {
+    /* hairline separator color (light theme default) */
+    --hairline: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+    /* slightly brighter hairline for dark mode */
+    --hairline: rgba(255, 255, 255, 0.14);
+}
+
+/* Display H3 (smaller than .h2) — English defaults to Orbitron */
+.h3 {
+    font-family: Orbitron, Inter, system-ui, sans-serif;
+    font-weight: 300;
+    font-size: clamp(20px, 2.9vw, 28px);
+    /* smaller than .h2 (26–36px) */
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    margin: 0;
+    /* keep tight like a heading utility */
+}
+
+/* Mongolian override: Science Gothic, same approach as .h2 */
+html.lang-mn .h3 {
+    font-family: "Science Gothic", "Exo 2", Inter, system-ui, sans-serif;
+}
+
+.feature-splits {
+    margin-block: clamp(24px, 6vw, 64px);
+}
+
+.feature-splits .split-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 1x2 layout */
+    gap: clamp(16px, 3vw, 36px);
+    padding-block: clamp(16px, 2.5vw, 20px);
+    align-items: center;
+    border-top: 1px solid var(--hairline);
+    /* thin line between sections */
+    min-block-size: 700px;
+}
+
+/* add bottom line to the last item for a framed stack */
+.feature-splits .split-item:last-child {
+    border-bottom: 1px solid var(--hairline);
+}
+
+.feature-splits .split-col>h3 {
+    margin: 0 0 0.35em;
+    line-height: 1.2;
+}
+
+.feature-splits .split-col>p {
+    margin: 0.25em 0 0;
+    opacity: 0.9;
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 900px) {
+    .feature-splits .split-item {
+        grid-template-columns: 1fr;
+        /* 1 column on mobile */
+    }
+
+    .feature-splits .split-col+.split-col {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px dashed var(--hairline);
+        /* subtle divider between the two parts on mobile */
+    }
+}
+
+/* =========================
+   Tri-split rows
+   ========================= */
+.feature-splits .tri-split {
+    /* parent already provides top/bottom hairlines via .split-item */
+    grid-template-columns: 1fr 1fr;
+    /* left half == right half */
+    align-items: center;
+    /* vertical centering across the row */
+    gap: clamp(14px, 3vw, 14px);
+    min-width: 0;
+}
+
+/* Left half internally: number auto-width + title fills remainder.
+   Named areas ensure number stays beside (not below) title regardless of DOM order. */
+.feature-splits .tri-split .left-wrap {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    /* number fits its characters */
+    grid-template-areas: "num title";
+    align-items: center;
+    gap: clamp(8px, 2vw, 18px);
+    min-width: 0;
+    /* allow text to ellipsize instead of stretching layout */
+}
+
+/* Place elements into the named areas */
+.feature-splits .tri-split .left-wrap .num {
+    grid-area: num;
+}
+
+.feature-splits .tri-split .left-wrap .title-wrap {
+    grid-area: title;
+}
+
+/* Number styling (slightly transparent, bold, big) */
+.feature-splits .tri-split .num {
+    display: inline-block;
+    font-size: clamp(28px, 5vw, 56px);
+    line-height: 1;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    opacity: 0.22;
+    /* slightly transparent */
+    padding: 0;
+    margin: 0;
+}
+
+/* Title next to number (if you also use .title class elsewhere) */
+.feature-splits .tri-split .title {
+    margin: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Right/second half divider:
+   Apply the divider to *the second column item* so it works in both normal and reversed DOM orders */
+.feature-splits .tri-split>*:nth-child(2) {
+    border-left: 1px solid var(--hairline);
+    padding-left: clamp(12px, 2vw, 20px);
+}
+
+.feature-splits .tri-split:has(> .right-col:first-child) .left-wrap {
+    grid-template-columns: 1fr max-content;
+    /* Title fills, number auto-width */
+    grid-template-areas: "title num";
+    /* swap positions */
+}
+
+/* Mobile: stack halves; move divider to a top border on the second block */
+@media (max-width: 900px) {
+    .feature-splits .tri-split {
+        grid-template-columns: 1fr;
+        /* stack left and right */
+        gap: clamp(10px, 2.5vw, 16px);
+    }
+
+    .feature-splits .tri-split>*:nth-child(2) {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px dashed var(--hairline);
+        padding-top: clamp(12px, 2vw, 20px);
+    }
+}
+
+
+/* ===== Futuristic chart card ===== */
+
+.chart-card {
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: clamp(15px, 2vw, 15px);
+    background: transparent;
+}
+
+.chart-head {
+    display: grid;
+    gap: 4px;
+    margin-bottom: 8px;
+    padding-top: 5%;
+}
+
+.chart-title.h3 {
+    margin: 0;
+}
+
+.chart-sub {
+    margin: 0;
+    font-size: clamp(13px, 1.6vw, 13px);
+    line-height: 1.35;
+    opacity: 0.8;
+}
+
+.chart-canvas {
+    position: relative;
+    height: clamp(300px, 50vh, 300px);
+    /* lets Chart.js fill the area */
+}
+
+.chart-foot {
+    margin-top: 5px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Subtle hairline grid look for both themes (Chart uses these rgba values) */
+:root {
+    --chart-grid: rgba(255, 255, 255, 0.15);
+    --chart-accent: var(--accent, #00D5FF);
+    --chart-accent-a: #8b5cf6;
+    --chart-accent-b: #1a9fff;
+}
+
+
+.image-card {
+    margin: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+.image-card>img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    object-fit: cover;
+    /* keeps it neat for any aspect ratio */
+}
+
+.image-caption {
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 12px;
+    opacity: .75;
+}
+
+.image-card.transparent {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.image-card.transparent img.edge-glow {
+    filter: url(#glowOutlineViolet);
+}
+
+
+/* === Section 4: Three bars === */
+.bars3 {
+    display: grid;
+    gap: clamp(12px, 2.2vw, 18px);
+}
+
+.bar-card {
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: clamp(10px, 1.8vw, 14px);
+    background: transparent;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.bar-label {
+    font-size: clamp(14px, 1.9vw, 16px);
+    opacity: .85;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bar-num {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.bar-num .value {
+    font-size: clamp(18px, 2.6vw, 22px);
+}
+
+.bar-num .unit {
+    font-size: clamp(12px, 1.6vw, 14px);
+    opacity: .8;
+}
+
+.bar-track {
+    position: relative;
+    height: 10px;
+    border-radius: 9999px;
+    background: color-mix(in oklab, currentColor 10%, transparent);
+    background: rgba(127, 127, 127, .18);
+    overflow: hidden;
+}
+
+.bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    border-radius: inherit;
+    /* accent gradient (reuses your variables) */
+    background: linear-gradient(90deg,
+            var(--chart-accent-a, #8b5cf6) 0%,
+            var(--chart-accent-b, #1a9fff) 100%);
+    box-shadow: 0 0 18px rgba(26, 159, 255, .25);
+    transition: width 900ms cubic-bezier(.22, .8, .27, 1);
+}
+
+/* Dark mode subtle tweak */
+[data-theme="dark"] .bar-track {
+    background: rgba(255, 255, 255, .12);
+}
+
+
+
+/* === Section 3: Article slider === */
+.article-slider {
+    display: grid;
+    gap: clamp(10px, 2vw, 14px);
+}
+
+.article-slider .slider-head {
+    display: grid;
+    grid-template-columns: 42px 1fr 42px;
+    align-items: center;
+    gap: 8px;
+}
+
+.article-slider .nav-btn {
+    color: #1a9fff;
+    inline-size: 42px;
+    block-size: 42px;
+    border-radius: 9999px;
+    border: 1px solid var(--hairline);
+    background: #ffffff00;
+    /* background: linear-gradient(180deg,
+            color-mix(in oklab, var(--chart-accent-b, #1a9fff) 10%, transparent),
+            transparent 60%); */
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.article-slider .nav-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px #1a9fff;
+}
+
+.article-slider .dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.article-slider .dots .dot {
+    inline-size: 8px;
+    block-size: 8px;
+    border-radius: 9999px;
+    background: rgba(127, 127, 127, .35);
+}
+
+.article-slider .dots .dot.active {
+    background: linear-gradient(90deg,
+            var(--chart-accent-a, #8b5cf6),
+            var(--chart-accent-b, #1a9fff));
+    box-shadow: 0 0 10px rgba(26, 159, 255, .35);
+}
+
+.article-window {
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+    block-size: 500px;
+    max-block-size: none;
+    box-sizing: border-box;
+    /* include padding in the 500px height */
+    block-size: 500px;
+    /* fixed window height */
+    max-block-size: none;
+    padding: 12px 14px;
+    /* small space between border and article */
+
+}
+
+.article-window article {
+    padding: 8px 10px;
+    block-size: 100%;
+    overflow: auto;
+    /* scroll the article content */
+    overscroll-behavior: contain;
+    /* optional: no bounce chaining */
+    -webkit-overflow-scrolling: touch;
+    /* smooth on iOS */
+    scrollbar-gutter: stable;
+    /* optional: prevent layout shift when scrollbar appears */
+}
+
+/* Title link */
+.article-window .art-title {
+    margin: 0 0 6px 0;
+    font-weight: 600;
+    font-size: clamp(15px, 2.1vw, 17px);
+    line-height: 1.25;
+}
+
+.article-window .art-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 3-line metadata (matches your preview.html’s vibe) */
+.article-window .art-meta {
+    font-size: 12px;
+    color: #666;
+    margin: 0 0 10px 0;
+    line-height: 1.6;
+}
+
+/* Lede box */
+.article-window .art-lede {
+    font-size: 13px;
+    background: color-mix(in oklab, var(--chart-accent-b, #1a9fff) 6%, #f0f0f0);
+    padding: 10px;
+    border-left: 4px solid var(--chart-accent-b, #1a9fff);
+    border-radius: 6px;
+    margin: 0 0 10px 0;
+}
+
+/* Body excerpt */
+.article-window .art-body {
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Skeleton while loading */
+.article-skeleton {
+    padding: 16px;
+}
+
+.article-skeleton .line {
+    height: 10px;
+    background: rgba(127, 127, 127, .18);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.article-skeleton .line.w60 {
+    width: 60%;
+}
+
+.article-skeleton .line.w30 {
+    width: 30%;
+}
+
+.article-skeleton .card {
+    height: 54px;
+    border-left: 4px solid var(--chart-accent-b, #1a9fff);
+    border-radius: 6px;
+    background: rgba(127, 127, 127, .12);
+    margin: 10px 0;
+}
+
+.article-skeleton .para {
+    height: 9px;
+    background: rgba(127, 127, 127, .18);
+    border-radius: 6px;
+    margin: 8px 0;
+}
+
+.article-skeleton .para.short {
+    width: 65%;
+}
+
+/* Dark theme tweaks */
+[data-theme="dark"] .article-window .art-meta {
+    color: #aaa;
+}
+
+[data-theme="dark"] .article-window {
+    background: rgba(255, 255, 255, .02);
+}
+
+[data-theme="dark"] #feature3 .article-window .art-lede {
+    background: color-mix(in oklab, var(--chart-accent-b, #1a9fff) 10%, #0b0f14);
+    /* keep the accent border; optionally dim it a touch:
+     border-left-color: color-mix(in oklab, var(--chart-accent-b, #1a9fff) 80%, #0b0f14); */
+}
+
+/* Dark theme */
+[data-theme="dark"] .article-slider .nav-btn {
+    color: #1a9fff;
+    /* icon color in dark */
+    border-color: #1a9fff;
+    background: #00000000;
+    /* background: linear-gradient(180deg, #1a9fff, transparent 60%); */
+}
+
+[data-theme="dark"] .article-slider .nav-btn:hover {
+    box-shadow: 0 6px 20px #1a9fff;
+}
+
+
+
+/* === Section 6: logos + panes === */
+.toolhub {
+    display: grid;
+    gap: clamp(12px, 2vw, 16px);
+}
+
+/* Logo row */
+.tool-logos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.tool-logos .tool {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 6px;
+    padding: 10px 8px;
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.tool-logos .tool[aria-selected="true"] {
+    outline: 2px solid color-mix(in oklab, var(--chart-accent-b, #1a9fff) 40%, transparent);
+    box-shadow: 0 6px 20px rgba(26, 159, 255, .18);
+}
+
+.tool-logos .tool:hover {
+    transform: translateY(-1px);
+}
+
+.tool-logos .tool .app-logo {
+    width: 40px;
+    height: 40px;
+    display: block;
+    object-fit: contain;
+    /* keeps aspect ratio if the viewBox is unusual */
+}
+
+/* Optional: if you want a slightly larger active logo */
+.tool-logos .tool[aria-selected="true"] .app-logo {
+    transform: scale(1.04);
+}
+
+.tool-logos .tool span {
+    font-size: 12px;
+    opacity: .85;
+}
+
+/* Pane card */
+
+.tool-panes {
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: clamp(12px, 2vw, 16px);
+    background: transparent;
+}
+
+/* Excel demo */
+.formula-bar {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+}
+
+.formula-bar strong {
+    font-size: 12px;
+    opacity: .8;
+}
+
+.formula-bar code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+}
+
+.xl-sheet table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+}
+
+.xl-sheet th,
+.xl-sheet td {
+    border: 1px solid var(--hairline);
+    padding: 6px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.xl-sheet thead th {
+    background: rgba(127, 127, 127, .10);
+    font-weight: 600;
+}
+
+.xl-sheet tr:first-child td {
+    background: rgba(127, 127, 127, .06);
+    font-weight: 600;
+}
+
+.xl-sheet tr.focus td {
+    background: rgba(26, 159, 255, .06);
+}
+
+.xl-sheet td.calc {
+    background: rgba(16, 124, 65, .10);
+    box-shadow: inset 0 0 0 2px rgba(16, 124, 65, .6);
+    font-weight: 700;
+}
+
+/* PPT demo */
+.ppt-card {
+    display: grid;
+    gap: 8px;
+}
+
+.ppt-title {
+    margin: 0;
+    font-size: clamp(14px, 2vw, 16px);
+}
+
+.ppt-outline {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 4px;
+}
+
+.ppt-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 11px;
+    opacity: .9;
+}
+
+/* Stata IDE */
+.ide {
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ide-head {
+    padding: 8px 10px;
+    font-size: 12px;
+    background: color-mix(in oklab, #9ca3af 8%, transparent);
+    border-bottom: 1px solid var(--hairline);
+}
+
+.code {
+    margin: 0;
+    padding: 10px 12px;
+    max-height: 280px;
+    overflow: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Dark tweaks */
+[data-theme="dark"] .formula-bar {
+    background: rgba(255, 255, 255, .02);
+}
+
+[data-theme="dark"] .xl-sheet thead th {
+    background: rgba(255, 255, 255, .06);
+}
+
+[data-theme="dark"] .xl-sheet tr:first-child td {
+    background: rgba(255, 255, 255, .04);
+}
+
+/* Make button text inherit the surrounding color */
+.tool-logos .tool {
+    color: inherit;
+}
+
+/* Make the label use the button's text color */
+.tool-logos .tool span {
+    color: currentColor;
+}
+
+/* Dark theme: set the container's text color to white */
+[data-theme="dark"] #feature6-tools {
+    color: #fff;
+}
+
+/* Small description block at the top of each pane */
+#feature6-tools .tool-desc {
+    margin: 0 0 10px 0;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    background: color-mix(in oklab, var(--chart-accent-b, #1a9fff) 6%, #f7f7f9);
+    border-left: 4px solid var(--chart-accent-b, #1a9fff);
+    opacity: 0.95;
+}
+
+/* Dark mode: darker fill but keep the accent edge */
+[data-theme="dark"] #feature6-tools .tool-desc {
+    background: color-mix(in oklab, var(--chart-accent-b, #1a9fff) 10%, rgba(255, 255, 255, 0.03));
+}
+
+/* Section 6 — PPT image in a tidy frame */
+#feature6-tools .ppt-frame {
+    margin: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    /* fill the available pane height beneath the description (if any) */
+    block-size: 100%;
+}
+
+#feature6-tools .ppt-frame img {
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    object-fit: contain;
+    /* keep full page visible */
+    display: block;
+}
+
+/* Make cards fully clickable */
+.card.is-link {
+    position: relative;
+    cursor: pointer;
+}
+
+.card.is-link .card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* keep text selectable if you want: pointer-events:auto; */
+}
+
+/* Ensure the page doesn't hide the target under the sticky header */
+.feature-splits .split-item {
+    scroll-margin-top: var(--scroll-offset, 96px);
+}
+
+
+
+/* Section 2 CTA (keeps existing layout) */
+/* Outline-only, compact CTA for Section 2 */
+:root {
+    --cta-outline: var(--chart-accent-a, #8b5cf6);
+}
+
+[data-theme="dark"] {
+    --cta-outline: var(--chart-accent-b, #ffffff);
+}
+
+#sec-2 .title-wrap .cta-btn,
+#sec-5 .title-wrap .cta-btn {
+    /* size & layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    /* smaller */
+    border-radius: 999px;
+    font-size: 9px;
+    line-height: 1;
+    cursor: pointer;
+
+    /* hero font */
+    font-family: Orbitron, Inter, system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: .2px;
+
+    /* outline only */
+    color: var(--cta-outline);
+    border: 1.5px solid var(--cta-outline) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-decoration: none;
+
+    /* keep layout intact under the title */
+    justify-self: start;
+}
+
+/* Mongolian hero variant */
+html.lang-mn #sec-2 .title-wrap .cta-btn,
+#sec-5 .title-wrap .cta-btn {
+    font-family: "Science Gothic", "Exo 2", Inter, system-ui, sans-serif;
+}
+
+/* Interactions (no fill) */
+#sec-2 .title-wrap .cta-btn:hover,
+#sec-5 .title-wrap .cta-btn:hover {
+    transform: translateY(-1px);
+}
+
+#sec-2 .title-wrap .cta-btn:active,
+#sec-5 .title-wrap .cta-btn:active {
+    transform: translateY(0);
+    opacity: .9;
+}
+
+#sec-2 .title-wrap .cta-btn:focus-visible,
+#sec-5 .title-wrap .cta-btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}

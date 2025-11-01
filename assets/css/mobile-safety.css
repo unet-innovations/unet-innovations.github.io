@@ -1,0 +1,8 @@
+/* --- mobile-safety.css: small-screen fixes --- */
+@media (max-width: 900px){
+  .feature-splits .split-item{ grid-template-columns: 1fr !important; min-block-size: auto !important; }
+  .feature-splits .tri-split .right-col{ border-left: none !important; padding-left: 0 !important; }
+  .feature-splits .left-wrap{ grid-template-columns: max-content 1fr !important; align-items: center; }
+}
+/* Generic responsive media */
+img, canvas, video{ max-width: 100%; height: auto; }

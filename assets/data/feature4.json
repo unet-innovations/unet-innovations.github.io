@@ -1,0 +1,16 @@
+{
+    "accuracy": [
+        {
+            "label": "GDP_YOY",
+            "value": 96.4
+        },
+        {
+            "label": "FXRATE",
+            "value": 99.8
+        },
+        {
+            "label": "INF",
+            "value": 99.9
+        }
+    ]
+}

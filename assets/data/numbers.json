@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "label": "RGDP_YoY[2025Q2]",
+      "value": "+5.62%"
+    },
+    {
+      "label": "CPI_YoY[2025M09]",
+      "value": "+9.03%"
+    },
+    {
+      "label": "FX(MNT/USD)[2025M09]",
+      "value": "+3,592.78"
+    },
+    {
+      "label": "PolicyRate[2025M09]",
+      "value": "+12.0%"
+    },
+    {
+      "label": "FXReserve(mln.USD)[2025M09]",
+      "value": "+5,874.52"
+    },
+    {
+      "label": "CoalExport(mln.ton)[2025M09]",
+      "value": "+58.39"
+    },
+    {
+      "label": "BoP(mln.USD)[2025M08]",
+      "value": "+4.63"
+    }
+  ]
+}
