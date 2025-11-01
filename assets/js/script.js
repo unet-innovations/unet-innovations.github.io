@@ -6,7 +6,7 @@
   // Theme
   const storedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+  const initialTheme = storedTheme || 'light';
   root.setAttribute('data-theme', initialTheme);
   const themeBtn = document.getElementById('themeToggle');
   if (themeBtn) {
@@ -23,7 +23,7 @@
   // Language
   const storedLang = localStorage.getItem('lang');
   const browserLang = ((navigator.language || 'en') + '').toLowerCase().startsWith('mn') ? 'mn' : 'en';
-  const defaultLang = storedLang || browserLang;
+  const defaultLang = storedLang || 'mn';
   let i18n = {};
   function applyI18n(lang) {
     const dict = i18n[lang] || {};
