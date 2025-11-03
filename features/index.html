@@ -2,8 +2,8 @@
 <html lang="en" data-theme="light">
 
 <head>
-<!-- boot: set defaults before paint (lang=mn, theme=light) -->
-<script>(()=>{const h=document.documentElement;const t=localStorage.getItem("theme");h.setAttribute("data-theme",(t==="dark"||t==="light")?t:"light");const s=(localStorage.getItem("lang")||"").toLowerCase();const L=(s==="mn"||s==="en")?s:"mn";h.setAttribute("lang",L);h.classList.toggle("lang-mn",L==="mn");})();</script>
+  <!-- boot: set defaults before paint (lang=mn, theme=light) -->
+  <script>(() => { const h = document.documentElement; const t = localStorage.getItem("theme"); h.setAttribute("data-theme", (t === "dark" || t === "light") ? t : "light"); const s = (localStorage.getItem("lang") || "").toLowerCase(); const L = (s === "mn" || s === "en") ? s : "mn"; h.setAttribute("lang", L); h.classList.toggle("lang-mn", L === "mn"); })();</script>
 
 
   <script>
@@ -323,7 +323,8 @@
                 <button class="tool logo excel" type="button" role="tab" aria-selected="true" data-tool="excel"
                   aria-controls="tool-pane-excel" title="Excel">
 
-                  <img src="/assets/icons/excel.svg" alt="Excel logo" class="app-logo" loading="lazy" decoding="async" />
+                  <img src="/assets/icons/excel.svg" alt="Excel logo" class="app-logo" loading="lazy"
+                    decoding="async" />
                   <span>Excel</span>
                 </button>
 
@@ -338,7 +339,8 @@
                 <!-- Stata -->
                 <button class="tool logo stata" type="button" role="tab" aria-selected="false" data-tool="stata"
                   aria-controls="tool-pane-stata" title="Stata">
-                  <img src="/assets/icons/stata.svg" alt="Stata logo" class="app-logo" loading="lazy" decoding="async" />
+                  <img src="/assets/icons/stata.svg" alt="Stata logo" class="app-logo" loading="lazy"
+                    decoding="async" />
                   <span>Stata</span>
                 </button>
               </div>
@@ -377,28 +379,28 @@
                           <td>retired</td>
                         </tr>
                         <tr>
-                          <td>ШМ91022836</td>
+                          <td>AA00000001</td>
                           <td>АЮУШЦЭНД</td>
                           <td>ЭМ</td>
                           <td>34</td>
                           <td>Үгүй</td>
                         </tr>
                         <tr>
-                          <td>ГЖ59030943</td>
+                          <td>AA00000002</td>
                           <td>ГОМБО</td>
                           <td>ЭР</td>
                           <td>66</td>
                           <td>Тийм</td>
                         </tr>
                         <tr>
-                          <td>ҮА53101025</td>
+                          <td>AA00000003</td>
                           <td>ГАЛТ</td>
                           <td>ЭР</td>
                           <td>72</td>
                           <td>Тийм</td>
                         </tr>
                         <tr class="focus">
-                          <td>ИЖ52090850</td>
+                          <td>AA00000004</td>
                           <td>ЦОГ-ЭРДЭНЭ</td>
                           <td>ЭР</td>
                           <td>73</td>
@@ -406,7 +408,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td>ВЛ90030114</td>
+                          <td>AA00000005</td>
                           <td>ЛИГДЭН</td>
                           <td>ЭМ</td>
                           <td>35</td>
@@ -555,14 +557,14 @@ forecast clear
 
 
 
-<script>
-(function(){ 
-  try{ 
-    var desired = "/features";
-    if (location.pathname === desired + "/") { history.replaceState(null, "", desired); }
-  }catch(e){/*noop*/}
-})();
-</script>
+  <script>
+    (function () {
+      try {
+        var desired = "/features";
+        if (location.pathname === desired + "/") { history.replaceState(null, "", desired); }
+      } catch (e) {/*noop*/ }
+    })();
+  </script>
 </body>
 
 </html>
