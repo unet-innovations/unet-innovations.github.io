@@ -2,8 +2,8 @@
 <html lang="en" data-theme="light">
 
 <head>
-<!-- boot: set defaults before paint (lang=mn, theme=light) -->
-<script>(()=>{const h=document.documentElement;const t=localStorage.getItem("theme");h.setAttribute("data-theme",(t==="dark"||t==="light")?t:"light");const s=(localStorage.getItem("lang")||"").toLowerCase();const L=(s==="mn"||s==="en")?s:"mn";h.setAttribute("lang",L);h.classList.toggle("lang-mn",L==="mn");})();</script>
+  <!-- boot: set defaults before paint (lang=mn, theme=light) -->
+  <script>(() => { const h = document.documentElement; const t = localStorage.getItem("theme"); h.setAttribute("data-theme", (t === "dark" || t === "light") ? t : "light"); const s = (localStorage.getItem("lang") || "").toLowerCase(); const L = (s === "mn" || s === "en") ? s : "mn"; h.setAttribute("lang", L); h.classList.toggle("lang-mn", L === "mn"); })();</script>
 
 
   <script>
@@ -78,7 +78,7 @@
         <a data-i18n="nav.products" href="/products/"></a>
         <a data-i18n="nav.team" href="/team/"></a>
         <a data-i18n="nav.about" href="/about/" class="active"></a>
-        <a class="btn" href="index.html#contact" data-i18n="nav.contact"></a>
+        <a class="btn" href="/#contact" data-i18n="nav.contact"></a>
         <div class="toggles">
           <button id="themeToggle" class="toggle" aria-pressed="false" title="Toggle theme">🌗</button>
           <div class="lang">
@@ -158,14 +158,14 @@
   </footer>
 
   <script src="/assets/js/script.js" defer></script>
-<script>
-(function(){ 
-  try{ 
-    var desired = "/about";
-    if (location.pathname === desired + "/") { history.replaceState(null, "", desired); }
-  }catch(e){/*noop*/}
-})();
-</script>
+  <script>
+    (function () {
+      try {
+        var desired = "/about";
+        if (location.pathname === desired + "/") { history.replaceState(null, "", desired); }
+      } catch (e) {/*noop*/ }
+    })();
+  </script>
 </body>
 
 </html>
