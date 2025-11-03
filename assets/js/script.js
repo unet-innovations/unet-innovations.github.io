@@ -40,7 +40,7 @@
     // toggle lang-mn class for Mongolian font override
     document.documentElement.classList.toggle('lang-mn', lang === 'mn');
   }
-  fetch('assets/i18n.json', { cache: 'no-store' })
+  fetch('/assets/i18n.json', { cache: 'no-store' })
     .then(r => r.json())
     .then(json => { i18n = json; applyI18n(defaultLang); })
     .catch(() => { });
@@ -52,7 +52,7 @@
   const track = document.getElementById('tickerTrack');
   const periodEl = document.getElementById('tickerPeriod');
   if (track && periodEl) {
-    fetch('assets/data/numbers.json', { cache: 'no-store' })
+    fetch('/assets/data/numbers.json', { cache: 'no-store' })
       .then(r => r.json())
       .then(data => {
         const items = (data.items || []).map(it => `<b>${it.label}=${it.value}</b>`).join('');
