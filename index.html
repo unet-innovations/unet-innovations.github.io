@@ -2,8 +2,8 @@
 <html lang="en" data-theme="light">
 
 <head>
-<!-- boot: set defaults before paint (lang=mn, theme=light) -->
-<script>(()=>{const h=document.documentElement;const t=localStorage.getItem("theme");h.setAttribute("data-theme",(t==="dark"||t==="light")?t:"light");const s=(localStorage.getItem("lang")||"").toLowerCase();const L=(s==="mn"||s==="en")?s:"mn";h.setAttribute("lang",L);h.classList.toggle("lang-mn",L==="mn");})();</script>
+  <!-- boot: set defaults before paint (lang=mn, theme=light) -->
+  <script>(() => { const h = document.documentElement; const t = localStorage.getItem("theme"); h.setAttribute("data-theme", (t === "dark" || t === "light") ? t : "light"); const s = (localStorage.getItem("lang") || "").toLowerCase(); const L = (s === "mn" || s === "en") ? s : "mn"; h.setAttribute("lang", L); h.classList.toggle("lang-mn", L === "mn"); })();</script>
 
 
   <script>
@@ -147,7 +147,7 @@
         <div class="grid">
           <div class="panel" style="grid-column:span 6" data-reveal>
             <h3 style="margin:0 0 8px" data-i18n="contact.write"></h3>
-            <p class="mono">innovations@unet.mn</p>
+            <p class="mono email">innovations<wbr>@<wbr>unet<wbr>.<wbr>mn</p>
             <p class="mono"><small>(+976) 7702-7700</small></p>
             <p data-i18n="contact.sla"></p>
           </div>
