@@ -9,12 +9,12 @@
       "value": "+9.03%"
     },
     {
-      "label": "FX(MNT/USD)[2025M09]",
-      "value": "+3,592.78"
+      "label": "FX(MNT/USD)[2025M10]",
+      "value": "+3,585.29"
     },
     {
-      "label": "PolicyRate[2025M09]",
-      "value": "+12.0%"
+      "label": "PolicyRate[2025M10]",
+      "value": "+12.00"
     },
     {
       "label": "FXReserve(mln.USD)[2025M09]",
@@ -25,8 +25,8 @@
       "value": "+58.39"
     },
     {
-      "label": "BoP(mln.USD)[2025M08]",
-      "value": "+4.63"
+      "label": "BoP(mln.USD)[2025M09]",
+      "value": "+53.17"
     }
   ]
 }
