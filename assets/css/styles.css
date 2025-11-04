@@ -702,30 +702,6 @@ html.lang-mn .hero-title {
 }
 
 
-
-/* Products page: enforce 1 row × 4 (narrow & tall), plus outline glow on 4th */
-.products-grid .product.card {
-  grid-column: span 3 !important;
-  min-height: 500px;
-  position: relative;
-  /* needed for any badge positioning */
-  padding-top: 50px;
-  /* reserve space for badges even if missing */
-  box-sizing: border-box;
-}
-
-@media (max-width: 1024px) {
-  .products-grid .product.card {
-    grid-column: span 3 !important
-  }
-}
-
-@media (max-width: 640px) {
-  .products-grid .product.card {
-    grid-column: span 1 !important
-  }
-}
-
 .product.card.popular {
   position: relative;
   padding-top: 50px;
