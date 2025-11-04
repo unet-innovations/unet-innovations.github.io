@@ -962,32 +962,58 @@ html.lang-mn .hero-title {
 }
 
 
-/* === Column layout stays the same (4 → 2 → 1) === */
+/* ===== Compact products layout (drop-in replacement) ===== */
+
+/* Layout + sizing tokens */
+:root {
+  /* Row heights */
+  --row1-h: clamp(550px, 42vh, 620px);
+  /* top cards */
+  --row2-h: clamp(100px, 30vh, 250px);
+  /* bottom cards */
+
+  /* Badge slot (reserved space above first-row content) */
+  --badge-h: 32px;
+  /* actual badge height */
+  --badge-gap: 12px;
+  /* spacing under badge */
+  --badge-slot: calc(var(--badge-h) + var(--badge-gap));
+
+  /* Badge position inside the card */
+  --badge-x: 10px;
+  --badge-y: 10px;
+}
+
+/* Columns: 4 on desktop (12-col grid → span 3 each) */
 .grid .col {
   grid-column: span 3;
-  /* 12-col grid → 4 columns on desktop */
   display: grid;
   gap: 20px;
 }
 
-/* First row = taller, Second row = shorter (applies to all columns) */
-:root {
-  --row1-h: clamp(550px, 42vh, 620px);
-  /* top cards (row 1) */
-  --row2-h: clamp(100px, 30vh, 250px);
-  /* bottom cards (row 2) */
+/* Make cards a positioning context for the absolute badge */
+.product.card {
+  position: relative;
 }
 
-/* Make the first card in each column taller, the second shorter */
+/* First row = taller + reserved badge slot; second row = shorter */
 .grid .col>.product:nth-child(1) {
   min-height: var(--row1-h);
+  padding-top: var(--badge-slot);
 }
 
 .grid .col>.product:nth-child(2) {
   min-height: var(--row2-h);
 }
 
-/* Tablet: 2 columns; soften the heights a bit */
+/* Place the Popular badge inside the card */
+.grid .col>.product.popular:first-child .badge {
+  position: absolute;
+  top: var(--badge-y);
+  left: var(--badge-x);
+}
+
+/* Tablet: 2 columns + softer heights via variables only */
 @media (max-width: 1200px) {
   .grid .col {
     grid-column: span 6;
@@ -999,15 +1025,19 @@ html.lang-mn .hero-title {
   }
 }
 
-/* Phone: 1 column; let content flow naturally (no forced heights) */
+/* Phone: 1 column; let cards flow naturally; keep a small badge slot via vars */
 @media (max-width: 640px) {
   .grid .col {
     grid-column: 1 / -1;
-    /* stacked cards; natural height */
   }
 
-  .grid .col>.product:nth-child(1),
-  .grid .col>.product:nth-child(2) {
-    min-height: auto;
+  :root {
+    --row1-h: auto;
+    /* min-height becomes auto via var */
+    --row2-h: auto;
+    --badge-h: 28px;
+    /* slightly smaller badge slot on phones */
+    --badge-gap: 10px;
+    /* --badge-slot updates automatically */
   }
 }
