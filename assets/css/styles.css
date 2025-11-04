@@ -960,3 +960,54 @@ html.lang-mn .hero-title {
   overflow-wrap: anywhere !important;
   word-break: break-word !important;
 }
+
+
+/* === Column layout stays the same (4 → 2 → 1) === */
+.grid .col {
+  grid-column: span 3;
+  /* 12-col grid → 4 columns on desktop */
+  display: grid;
+  gap: 20px;
+}
+
+/* First row = taller, Second row = shorter (applies to all columns) */
+:root {
+  --row1-h: clamp(550px, 42vh, 620px);
+  /* top cards (row 1) */
+  --row2-h: clamp(100px, 30vh, 250px);
+  /* bottom cards (row 2) */
+}
+
+/* Make the first card in each column taller, the second shorter */
+.grid .col>.product:nth-child(1) {
+  min-height: var(--row1-h);
+}
+
+.grid .col>.product:nth-child(2) {
+  min-height: var(--row2-h);
+}
+
+/* Tablet: 2 columns; soften the heights a bit */
+@media (max-width: 1200px) {
+  .grid .col {
+    grid-column: span 6;
+  }
+
+  :root {
+    --row1-h: clamp(360px, 38vh, 520px);
+    --row2-h: clamp(240px, 26vh, 360px);
+  }
+}
+
+/* Phone: 1 column; let content flow naturally (no forced heights) */
+@media (max-width: 640px) {
+  .grid .col {
+    grid-column: 1 / -1;
+    /* stacked cards; natural height */
+  }
+
+  .grid .col>.product:nth-child(1),
+  .grid .col>.product:nth-child(2) {
+    min-height: auto;
+  }
+}
