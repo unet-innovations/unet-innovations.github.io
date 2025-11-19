@@ -1,12 +1,12 @@
 {
   "items": [
     {
-      "label": "RGDP_YoY[2025Q2]",
-      "value": "+5.62%"
+      "label": "RGDP_YoY[2025Q3]",
+      "value": "+5.94%"
     },
     {
-      "label": "CPI_YoY[2025M09]",
-      "value": "+9.03%"
+      "label": "CPI_YoY[2025M10]",
+      "value": "+9.17%"
     },
     {
       "label": "FX(MNT/USD)[2025M10]",
