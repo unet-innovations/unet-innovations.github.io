@@ -9,11 +9,11 @@
       "value": "+9.17%"
     },
     {
-      "label": "FX(MNT/USD)[2025M10]",
-      "value": "+3,585.29"
+      "label": "FX(MNT/USD)[2025M11]",
+      "value": "+3,553.58"
     },
     {
-      "label": "PolicyRate[2025M10]",
+      "label": "PolicyRate[2025M11]",
       "value": "+12.00%"
     },
     {
@@ -25,8 +25,8 @@
       "value": "+64.97"
     },
     {
-      "label": "BoP(mln.USD)[2025M09]",
-      "value": "+53.17"
+      "label": "BoP(mln.USD)[2025M10]",
+      "value": "+141.01"
     }
   ]
 }
