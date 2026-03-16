@@ -9,6 +9,22 @@
 
 <title>Not Found</title>
 <style>
+  :root {
+    --line: rgba(255, 255, 255, .14);
+    --surface: rgba(255, 255, 255, .08);
+    --fg: #fff;
+  }
+
+  #shader-background {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+    pointer-events: none;
+  }
+
   body {
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
     display: grid;
@@ -29,11 +45,91 @@
     padding: 24px 20px;
     background: rgba(255, 255, 255, .03);
     max-width: 560px;
-    text-align: center
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .toggle {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 38px;
+    block-size: 38px;
+    font-family: inherit;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--fg);
+    border-radius: 10px;
+    padding: 0;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .lang-toggle {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    z-index: 2;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .3px;
   }
 </style>
+<canvas id="shader-background" aria-hidden="true"></canvas>
+<button id="langToggle" class="toggle lang-toggle" type="button" aria-label="Toggle language">MN</button>
 <div class="card">
   <h1>404</h1>
-  <p>We couldn't find that page.</p>
-  <p><a href="/">Back to home →</a></p>
+  <p id="notFoundText">We couldn't find that page.</p>
+  <p><a id="homeLink" href="/">Back to home →</a></p>
 </div>
+<script src="/assets/js/shader-background.js" defer></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var messages = {
+      en: {
+        title: "Not Found",
+        text: "We couldn't find that page.",
+        cta: "Back to home →"
+      },
+      mn: {
+        title: "Хуудас олдсонгүй",
+        text: "Таны хайсан хуудас олдсонгүй.",
+        cta: "Нүүр хуудас руу буцах →"
+      }
+    };
+
+    var langButton = document.getElementById("langToggle");
+    var notFoundText = document.getElementById("notFoundText");
+    var homeLink = document.getElementById("homeLink");
+
+    function getInitialLang() {
+      var saved = (localStorage.getItem("lang") || "").toLowerCase();
+      if (saved === "mn" || saved === "en") return saved;
+      return "en";
+    }
+
+    function applyLang(lang) {
+      var next = lang === "mn" ? "en" : "mn";
+      var copy = messages[lang] || messages.en;
+      document.documentElement.setAttribute("lang", lang);
+      document.title = copy.title;
+      notFoundText.textContent = copy.text;
+      homeLink.textContent = copy.cta;
+      langButton.textContent = next.toUpperCase();
+      langButton.setAttribute("title", "Switch language to " + (next === "mn" ? "Mongolian" : "English"));
+      localStorage.setItem("lang", lang);
+    }
+
+    var currentLang = getInitialLang();
+    applyLang(currentLang);
+
+    langButton.addEventListener("click", function () {
+      currentLang = currentLang === "mn" ? "en" : "mn";
+      applyLang(currentLang);
+    });
+
+    if (typeof window.initShaderBackground === "function") {
+      window.initShaderBackground("shader-background");
+    }
+  });
+</script>

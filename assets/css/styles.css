@@ -286,6 +286,13 @@ html[data-theme="dark"] .btn {
   border-bottom: 1px solid var(--line)
 }
 
+/* Home page: keep hero isolated on first load */
+#home>.hero {
+  min-height: calc(100svh - 110px);
+  display: flex;
+  align-items: center;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -647,6 +654,11 @@ footer {
 
   .stats {
     grid-template-columns: 1fr
+  }
+
+  #home>.hero {
+    min-height: calc(100svh - 96px);
+    align-items: flex-start;
   }
 }
 
@@ -1098,4 +1110,26 @@ html.lang-mn .hero-title {
     --badge-gap: 10px;
     /* --badge-slot updates automatically */
   }
+}
+
+/* Shader background canvas */
+#shader-background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body {
+  position: relative;
+}
+
+.site-header,
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }

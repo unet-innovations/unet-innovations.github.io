@@ -63,6 +63,8 @@
 </head>
 
 <body>
+  <canvas id="shader-background" aria-hidden="true"></canvas>
+
 
   <div class="blob" aria-hidden="true"></div>
   <header class="site-header">
@@ -183,6 +185,14 @@
     </div>
   </footer>
 
+  <script src="/assets/js/shader-background.js" defer></script>
+  <script defer>
+    window.addEventListener("DOMContentLoaded", function () {
+      if (typeof window.initShaderBackground === "function") {
+        window.initShaderBackground("shader-background");
+      }
+    });
+  </script>
   <script src="/assets/js/script.js" defer></script>
   <script>
     (function () {
