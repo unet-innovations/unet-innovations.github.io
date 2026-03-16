@@ -24,8 +24,22 @@
   const storedLang = localStorage.getItem('lang');
   const browserLang = ((navigator.language || 'en') + '').toLowerCase().startsWith('mn') ? 'mn' : 'en';
   const defaultLang = storedLang || 'mn';
+  let currentLang = defaultLang;
+  const langBtn = document.getElementById('langToggle');
   let i18n = {};
+  function syncLangButton(lang) {
+    if (!langBtn) return;
+    const isMn = lang === 'mn';
+    const nextLang = isMn ? 'en' : 'mn';
+    const nextLabel = nextLang.toUpperCase();
+    const nextTitle = nextLang === 'en' ? 'English' : 'Mongolian';
+    langBtn.textContent = nextLabel;
+    langBtn.setAttribute('aria-pressed', 'false');
+    langBtn.setAttribute('title', `Switch language to ${nextTitle}`);
+    langBtn.setAttribute('aria-label', `Switch language to ${nextTitle}`);
+  }
   function applyI18n(lang) {
+    currentLang = lang;
     const dict = i18n[lang] || {};
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
@@ -36,6 +50,7 @@
       if (dict[key]) el.innerHTML = dict[key];
     });
     localStorage.setItem('lang', lang);
+    syncLangButton(lang);
     document.querySelectorAll('.lang .toggle').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
     // toggle lang-mn class for Mongolian font override
     document.documentElement.classList.toggle('lang-mn', lang === 'mn');
@@ -47,6 +62,13 @@
   document.querySelectorAll('.lang .toggle').forEach(btn => {
     btn.addEventListener('click', () => applyI18n(btn.dataset.lang));
   });
+  if (langBtn) {
+    syncLangButton(defaultLang);
+    langBtn.addEventListener('click', () => {
+      const nextLang = currentLang === 'mn' ? 'en' : 'mn';
+      applyI18n(nextLang);
+    });
+  }
 
   // Ticker from JSON
   const track = document.getElementById('tickerTrack');
@@ -60,6 +82,58 @@
         periodEl.textContent = data.period || '—';
       })
       .catch(() => { track.innerHTML = '<b>—</b>'; periodEl.textContent = '—'; });
+  }
+
+  // Partner logos (About)
+  const partnerWrap = document.getElementById('partnerLogos');
+  if (partnerWrap) {
+    const allowedExt = ['svg', 'png', 'jpg', 'jpeg', 'webp'];
+    const parseList = (list) => (list || [])
+      .map(item => (item || '').split('/').pop())
+      .filter(name => {
+        const ext = name.split('.').pop().toLowerCase();
+        return name && allowedExt.includes(ext);
+      });
+    const humanize = (file) => {
+      const base = file.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
+      if (!base) return 'Partner logo';
+      return base.replace(/\b\w/g, c => c.toUpperCase());
+    };
+    const render = (files) => {
+      const seen = new Set();
+      partnerWrap.innerHTML = '';
+      files.forEach(file => {
+        const clean = file.split('/').pop();
+        if (!clean || seen.has(clean)) return;
+        seen.add(clean);
+        const item = document.createElement('div');
+        item.className = 'partner-logo';
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = `/assets/logos/${clean}`;
+        img.alt = humanize(clean);
+        item.appendChild(img);
+        partnerWrap.appendChild(item);
+      });
+    };
+    const staticList = (() => {
+      try { return JSON.parse(partnerWrap.dataset.staticLogos || '[]'); }
+      catch (e) { return []; }
+    })();
+    const fallback = () => {
+      const files = parseList(staticList);
+      if (files.length) render(files);
+    };
+    fetch('/assets/logos/', { cache: 'no-store' })
+      .then(r => r.ok ? r.text() : Promise.reject())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const hrefs = Array.from(doc.querySelectorAll('a')).map(a => a.getAttribute('href') || '');
+        const files = parseList(hrefs);
+        if (files.length) { render(files); return; }
+        fallback();
+      })
+      .catch(fallback);
   }
 
   // Scroll reveal

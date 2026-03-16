@@ -526,6 +526,72 @@ html[data-theme="dark"] .panel {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
 
+/* Partners */
+.partners {
+  padding: 64px 0 90px;
+}
+
+.partners-head {
+  text-align: left;
+  max-width: 1000px;
+  margin: 0 0 26px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.partners-head .eyebrow {
+  margin-bottom: 8px;
+}
+
+.partners-head .muted {
+  margin: 0;
+  color: var(--muted);
+}
+
+.partner-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc((100% - 48px) / 4), 1fr));
+  gap: 16px;
+}
+
+.partner-logo {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px;
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: transform .18s ease;
+}
+
+.partner-logo img {
+  max-height: 56px;
+  max-width: 100%;
+  object-fit: contain;
+  filter: none;
+  transition: transform .18s ease;
+}
+
+.partner-logo:hover {
+  transform: translateY(-3px);
+}
+
+.partner-logo:hover img {
+  transform: translateY(1px);
+}
+
+html[data-theme="dark"] .partner-logo {
+  background: #0f1522;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+html[data-theme="dark"] .partner-logo img {
+  filter: brightness(0) invert(1);
+}
+
 /* Footer */
 footer {
   border-top: 1px solid var(--line);
@@ -568,6 +634,10 @@ footer {
   .about {
     grid-template-columns: 1fr
   }
+
+  .partner-logos {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -600,16 +670,28 @@ footer {
 }
 
 .toggle {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 38px;
+  block-size: 38px;
+  font-family: inherit;
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--fg);
   border-radius: 10px;
-  padding: 6px 10px;
+  padding: 0;
+  line-height: 1;
   cursor: pointer
 }
 
 .lang .toggle[aria-pressed="true"] {
   outline: 2px solid var(--primary)
+}
+
+.lang-toggle {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .3px;
 }
 
 .brand-glyph-img {

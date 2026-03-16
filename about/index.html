@@ -79,13 +79,10 @@
         <a data-i18n="nav.products" href="/products/"></a>
         <a data-i18n="nav.team" href="/team/"></a>
         <a data-i18n="nav.about" href="/about/" class="active"></a>
-        <a class="btn" href="/#contact" data-i18n="nav.contact"></a>
+        <!-- <a class="btn" href="/#contact" data-i18n="nav.contact"></a> -->
         <div class="toggles">
           <button id="themeToggle" class="toggle" aria-pressed="false" title="Toggle theme">🌗</button>
-          <div class="lang">
-            <button class="toggle" data-lang="en" aria-pressed="true">EN</button>
-            <button class="toggle" data-lang="mn" aria-pressed="false">MN</button>
-          </div>
+          <button id="langToggle" class="toggle lang-toggle" aria-pressed="false" title="Toggle language">MN</button>
         </div>
       </nav>
     </div>
@@ -125,6 +122,15 @@
 
   }</pre>
         </div>
+      </div>
+    </section>
+
+    <section class="partners" id="partners">
+      <div class="container">
+        <div class="partners-head" data-reveal>
+          <h2 class="h2" data-i18n="partners.title"></h2>
+        </div>
+        <div class="partner-logos" id="partnerLogos"></div>
       </div>
     </section>
   </main>
