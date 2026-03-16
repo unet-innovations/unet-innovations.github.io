@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+Disallow: /about.html
+Disallow: /features.html
+Disallow: /products.html
+Disallow: /team.html
+
+Sitemap: https://innovations.mn/sitemap.xml
