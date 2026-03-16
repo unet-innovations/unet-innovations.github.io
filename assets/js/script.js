@@ -120,20 +120,20 @@
       try { return JSON.parse(partnerWrap.dataset.staticLogos || '[]'); }
       catch (e) { return []; }
     })();
-    const fallback = () => {
-      const files = parseList(staticList);
-      if (files.length) render(files);
-    };
-    fetch('/assets/logos/', { cache: 'no-store' })
-      .then(r => r.ok ? r.text() : Promise.reject())
-      .then(html => {
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        const hrefs = Array.from(doc.querySelectorAll('a')).map(a => a.getAttribute('href') || '');
-        const files = parseList(hrefs);
-        if (files.length) { render(files); return; }
-        fallback();
-      })
-      .catch(fallback);
+    const staticFiles = parseList(staticList);
+    if (staticFiles.length) {
+      render(staticFiles);
+    } else {
+      fetch('/assets/logos/', { cache: 'no-store' })
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(html => {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const hrefs = Array.from(doc.querySelectorAll('a')).map(a => a.getAttribute('href') || '');
+          const files = parseList(hrefs);
+          if (files.length) render(files);
+        })
+        .catch(() => { });
+    }
   }
 
   // Scroll reveal
