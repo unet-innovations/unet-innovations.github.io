@@ -28,6 +28,23 @@
     margin-left: auto;
     flex-wrap: wrap;
   }
+
+  /* Keep ticker compact when header collapses */
+  .site-header .ticker{
+    gap: 8px;
+  }
+  .site-header .ticker-track{
+    padding: 6px 0;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  .site-header .ticker b{
+    margin: 0 14px;
+  }
+  .site-header .ticker-period{
+    padding-right: 12px;
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 640px){
@@ -37,6 +54,22 @@
   .site-header .nav-links .toggles{
     margin-left: 0;
     width: 100%;
+  }
+
+  .site-header .ticker{
+    gap: 6px;
+  }
+  .site-header .ticker-track{
+    padding: 4px 0;
+    font-size: 12px;
+  }
+  .site-header .ticker b{
+    margin: 0 10px;
+  }
+  .site-header .ticker-period{
+    padding-right: 10px;
+    font-size: 10px;
+    white-space: nowrap;
   }
 }
 /* Generic responsive media */
