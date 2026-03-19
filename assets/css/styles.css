@@ -68,12 +68,12 @@ html[data-theme="dark"] {
   box-sizing: border-box
 }
 
-html,
-body {
+html {
   height: 100%
 }
 
 body {
+  min-height: 100%;
   margin: 0;
   background: var(--bg);
   color: var(--fg);
@@ -154,6 +154,7 @@ html[data-theme="dark"] body::before {
 
 /* Header */
 .site-header {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -1127,7 +1128,6 @@ body {
   position: relative;
 }
 
-.site-header,
 main,
 footer {
   position: relative;

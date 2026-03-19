@@ -116,24 +116,29 @@
         partnerWrap.appendChild(item);
       });
     };
-    const staticList = (() => {
-      try { return JSON.parse(partnerWrap.dataset.staticLogos || '[]'); }
-      catch (e) { return []; }
-    })();
-    const staticFiles = parseList(staticList);
-    if (staticFiles.length) {
-      render(staticFiles);
-    } else {
-      fetch('/assets/logos/', { cache: 'no-store' })
-        .then(r => r.ok ? r.text() : Promise.reject())
-        .then(html => {
-          const doc = new DOMParser().parseFromString(html, 'text/html');
-          const hrefs = Array.from(doc.querySelectorAll('a')).map(a => a.getAttribute('href') || '');
-          const files = parseList(hrefs);
-          if (files.length) render(files);
-        })
-        .catch(() => { });
-    }
+    fetch('/assets/logos/manifest.json', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(manifest => {
+        const list = Array.isArray(manifest) ? manifest : (manifest.logos || manifest.files || []);
+        const files = parseList(list);
+        if (files.length) {
+          render(files);
+          return;
+        }
+        return Promise.reject();
+      })
+      .catch(() => {
+        // Fallback for hosts that don't serve JSON files correctly.
+        fetch('/assets/logos/', { cache: 'no-store' })
+          .then(r => r.ok ? r.text() : Promise.reject())
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const hrefs = Array.from(doc.querySelectorAll('a')).map(a => a.getAttribute('href') || '');
+            const files = parseList(hrefs);
+            if (files.length) render(files);
+          })
+          .catch(() => { });
+      });
   }
 
   // Scroll reveal
