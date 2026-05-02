@@ -9,11 +9,11 @@
       "value": "+7.37%"
     },
     {
-      "label": "FX(MNT/USD)[2026M03]",
-      "value": "+3,568.71"
+      "label": "FX(MNT/USD)[2026M04]",
+      "value": "+3,576.22"
     },
     {
-      "label": "PolicyRate[2026M03]",
+      "label": "PolicyRate[2026M04]",
       "value": "+12.00%"
     },
     {
@@ -25,8 +25,8 @@
       "value": "+26.34"
     },
     {
-      "label": "BoP(mln.USD)[2026M02]",
-      "value": "-479.06"
+      "label": "BoP(mln.USD)[2026M03]",
+      "value": "+95.51"
     }
   ]
 }
