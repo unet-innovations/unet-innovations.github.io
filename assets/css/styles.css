@@ -501,8 +501,21 @@ html[data-theme="dark"] .product {
 }
 
 .product .price {
-  margin-left: auto;
   color: var(--muted)
+}
+
+.price-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: auto
+}
+
+.price-note {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.2
 }
 
 .prow {
