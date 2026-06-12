@@ -22,11 +22,36 @@
 
   // Language
   const storedLang = localStorage.getItem('lang');
-  const browserLang = ((navigator.language || 'en') + '').toLowerCase().startsWith('mn') ? 'mn' : 'en';
-  const defaultLang = storedLang || 'mn';
+  const defaultLang = storedLang === 'en' || storedLang === 'mn' ? storedLang : 'mn';
   let currentLang = defaultLang;
   const langBtn = document.getElementById('langToggle');
   let i18n = {};
+  const pagePath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const pageKey = {
+    '/': 'home',
+    '/about': 'about',
+    '/features': 'features',
+    '/products': 'products',
+    '/team': 'team'
+  }[pagePath];
+  function setMetaContent(selector, content) {
+    const element = document.querySelector(selector);
+    if (element && content) element.setAttribute('content', content);
+  }
+  function syncSeo(lang, dict) {
+    if (!pageKey) return;
+    const title = dict[`seo.${pageKey}.title`];
+    const description = dict[`seo.${pageKey}.description`];
+    if (title) document.title = title;
+    setMetaContent('meta[name="description"]', description);
+    setMetaContent('meta[property="og:site_name"]', 'Unet Innovations');
+    setMetaContent('meta[property="og:title"]', title);
+    setMetaContent('meta[property="og:description"]', description);
+    setMetaContent('meta[name="twitter:title"]', title);
+    setMetaContent('meta[name="twitter:description"]', description);
+    setMetaContent('meta[property="og:locale"]', lang === 'mn' ? 'mn_MN' : 'en_US');
+    setMetaContent('meta[property="og:locale:alternate"]', lang === 'mn' ? 'en_US' : 'mn_MN');
+  }
   function syncLangButton(lang) {
     if (!langBtn) return;
     const isMn = lang === 'mn';
@@ -49,10 +74,12 @@
       const key = el.getAttribute('data-i18n-html');
       if (dict[key]) el.innerHTML = dict[key];
     });
+    syncSeo(lang, dict);
     localStorage.setItem('lang', lang);
     syncLangButton(lang);
     document.querySelectorAll('.lang .toggle').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
     // toggle lang-mn class for Mongolian font override
+    document.documentElement.setAttribute('lang', lang);
     document.documentElement.classList.toggle('lang-mn', lang === 'mn');
   }
   fetch('/assets/i18n.json', { cache: 'no-store' })
