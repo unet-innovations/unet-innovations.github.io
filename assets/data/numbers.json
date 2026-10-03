@@ -1,8 +1,8 @@
 {
   "items": [
     {
-      "label": "RGDP_YoY[2026Q2]",
-      "value": "+7.67%"
+      "label": "RGDP_YoY[2024Q3]",
+      "value": "+5.24%"
     },
     {
       "label": "CPI_YoY[2026M08]",
@@ -17,8 +17,8 @@
       "value": "+12.50%"
     },
     {
-      "label": "FXReserve(mln.USD)[2026M08]",
-      "value": "+8,372.63"
+      "label": "FXReserve(mln.USD)[2026M09]",
+      "value": "+8,896.86"
     },
     {
       "label": "CoalExport(mln.ton)[2026M08]",
